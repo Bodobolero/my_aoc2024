@@ -2,11 +2,14 @@
 
 ## How to use
 
+Copy input for day into inputs/inputxx.txt
+Implement solution in src/days/dayxx.rs
+
 ```bash
-# test a day
+# test solution for a day
 cargo test --lib day01
-# run a day
+# run solution for a day
 cargo run --bin day01
-# becnh a day
+# run benchmark for a day
 cargo bench day01
 ```
