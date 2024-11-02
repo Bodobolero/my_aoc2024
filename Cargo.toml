@@ -1,0 +1,46 @@
+[package]
+name = "my_aoc2024"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+itertools = "0.13.0"
+regex = "1.6.0"
+lazy_static = "1.5"
+lazy-regex = "3.3"
+rustc-hash = "2.0"
+
+[dev-dependencies]
+criterion = "0.5.1"  
+
+
+[[bin]]
+name = "day01"
+path = "src/bin/day01.rs"
+
+[[bin]]
+name = "day02"
+path = "src/bin/day02.rs"
+
+[[bin]]
+name = "day03"
+path = "src/bin/day03.rs"
+
+[[bin]]
+name = "day04"
+path = "src/bin/day04.rs"
+
+[[bin]]
+name = "day05"
+path = "src/bin/day05.rs"
+
+[profile.dev]
+opt-level = 1
+
+[profile.bench]
+opt-level = 3
+
+
+[[bench]]
+name = "benchmark"
+harness = false
