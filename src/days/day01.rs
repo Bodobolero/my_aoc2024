@@ -31,7 +31,7 @@ pub fn part2() -> i64 {
         *count += 1;
     }
     a.iter()
-        .map(|val| *counts.entry(*val).or_default() * val)
+        .map(|val| counts.get(val).unwrap_or(&0) * val)
         .sum()
 }
 
