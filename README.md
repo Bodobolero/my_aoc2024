@@ -20,6 +20,7 @@ cargo bench day01
 | :----|-------:|-------:|
 | day01|  85 µs | 106 µs |
 | day02| 101 µs | 877 µs |
+| day03| 483 µs | 424 µs |
 
 
 ## Benchmark details
@@ -48,6 +49,13 @@ Found 2 outliers among 100 measurements (2.00%)
 day02_part2             time:   [873.28 µs 876.96 µs 881.02 µs]
 Found 1 outliers among 100 measurements (1.00%)
   1 (1.00%) high mild
+
+day03_part1             time:   [480.87 µs 483.00 µs 485.27 µs]
+Found 8 outliers among 100 measurements (8.00%)
+  2 (2.00%) high mild
+  6 (6.00%) high severe
+
+day03_part2             time:   [421.70 µs 423.70 µs 425.79 µs]
 
 
 ```
