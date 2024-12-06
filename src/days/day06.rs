@@ -101,7 +101,7 @@ pub fn part2() -> usize {
     for i in 0..max_x {
         'inner: for j in 0..max_y {
             // Create a deep copy
-            let mut map2: Vec<Vec<u8>> = original_map.iter().map(|inner| inner.clone()).collect();
+            let mut map2: Vec<Vec<u8>> = original_map.to_vec();
             if map[i as usize][j as usize] == b'X' {
                 map2[i as usize][j as usize] = b'#';
                 x = start_x;
