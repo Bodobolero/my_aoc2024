@@ -1,4 +1,3 @@
-#[allow(dead_code)] // not yet used in template
 const INPUT: &str = include_str!("../../inputs/input06.txt");
 
 const DIRECTIONS: [(i32, i32); 4] = [
@@ -21,7 +20,6 @@ pub fn part1() -> usize {
             }
         }
     }
-    // println!("starting at ({},{})", x, y);
     let mut count: usize = 0;
     let max_x = map.len() as i32;
     let max_y = map[0].len() as i32;
@@ -68,8 +66,6 @@ pub fn part2() -> usize {
     }
     let start_x = x;
     let start_y = y;
-    // println!("starting at ({},{})", x, y);
-
     let max_x = map.len() as i32;
     let max_y = map[0].len() as i32;
     let mut direction = 0;
