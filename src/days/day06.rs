@@ -1,5 +1,3 @@
-use std::collections::HashSet;
-
 #[allow(dead_code)] // not yet used in template
 const INPUT: &str = include_str!("../../inputs/input06.txt");
 
@@ -109,24 +107,22 @@ pub fn part2() -> usize {
                 x = start_x;
                 y = start_y;
                 direction = 0;
-                // remember places and directions we have visited a position
-                let mut memory: HashSet<(i32, i32, usize)> = HashSet::new();
                 // now walk the new, modified map
                 while x >= 0 && y >= 0 && x < max_x && y < max_y {
-                    if memory.contains(&(x, y, direction)) {
-                        count += 1;
-                        // println!("placing obstacle at ({},{}) creates loop", i, j);
-                        // map2[start_x as usize][start_y as usize] = b'^';
-                        // map2[x as usize][y as usize] = b'L';
-                        // map2[i as usize][j as usize] = b'O';
-                        // for row in &map2 {
-                        //     let line: String = row.iter().map(|&c| c as char).collect();
-                        //     println!("{}", line);
-                        // }
-                        continue 'inner;
+                    // we use a bitmap placed in the map for rembembering the directions
+                    // we have used at this position
+                    if map2[x as usize][y as usize] > 0b1111u8 {
+                        // we have not yet stored a direction, just store it
+                        map2[x as usize][y as usize] = 1 << direction;
                     } else {
-                        memory.insert((x, y, direction));
-                        map2[x as usize][y as usize] = b'0' + (direction as u8);
+                        // have we been here in same direction
+                        if map2[x as usize][y as usize] & (0b1 << direction) > 0 {
+                            count += 1;
+                            continue 'inner;
+                        } else {
+                            // add direction
+                            map2[x as usize][y as usize] |= 0b1 << direction;
+                        }
                     }
                     // check if we need to change direction
                     let next_x = x + DIRECTIONS[direction].0;
@@ -139,7 +135,6 @@ pub fn part2() -> usize {
                     {
                         // turn
                         direction = (direction + 1) % 4;
-                        map2[x as usize][y as usize] = b'+';
                     } else {
                         // walk
                         x += DIRECTIONS[direction].0;
