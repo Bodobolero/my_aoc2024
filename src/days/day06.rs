@@ -54,7 +54,7 @@ pub fn part1() -> usize {
 
 pub fn part2() -> usize {
     let mut map: Vec<Vec<u8>> = INPUT.lines().map(|line| line.as_bytes().to_vec()).collect();
-    let original_map: Vec<Vec<u8>> = map.iter().map(|inner| inner.clone()).collect();
+    let original_map: Vec<Vec<u8>> = map.to_vec();
     let mut x: i32 = 0; // rows from top to bottom
     let mut y: i32 = 0; // chars from left to right
     'outer: for (i, row) in map.iter().enumerate() {
