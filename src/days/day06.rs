@@ -51,11 +51,10 @@ pub fn part1() -> usize {
 }
 
 pub fn part2() -> usize {
-    let mut map: Vec<Vec<u8>> = INPUT.lines().map(|line| line.as_bytes().to_vec()).collect();
-    let original_map: Vec<Vec<u8>> = map.to_vec();
+    let mut map2: Vec<Vec<u8>> = INPUT.lines().map(|line| line.as_bytes().to_vec()).collect();
     let mut x: i32 = 0; // rows from top to bottom
     let mut y: i32 = 0; // chars from left to right
-    'outer: for (i, row) in map.iter().enumerate() {
+    'outer: for (i, row) in map2.iter().enumerate() {
         for (j, &value) in row.iter().enumerate() {
             if value == b'^' {
                 x = i as i32;
@@ -64,16 +63,12 @@ pub fn part2() -> usize {
             }
         }
     }
-    let start_x = x;
-    let start_y = y;
-    let max_x = map.len() as i32;
-    let max_y = map[0].len() as i32;
+    let max_x = map2.len() as i32;
+    let max_y = map2[0].len() as i32;
     let mut direction = 0;
+    let mut count: usize = 0;
+    // try all possible obstacles
     while x >= 0 && y >= 0 && x < max_x && y < max_y {
-        if map[x as usize][y as usize] != b'X' {
-            // count and mark
-            map[x as usize][y as usize] = b'X';
-        }
         // check if we need to change direction
         let next_x = x + DIRECTIONS[direction].0;
         let next_y = y + DIRECTIONS[direction].1;
@@ -81,63 +76,88 @@ pub fn part2() -> usize {
             && next_y >= 0
             && next_x < max_x
             && next_y < max_y
-            && map[next_x as usize][next_y as usize] == b'#'
+            && map2[next_x as usize][next_y as usize] == b'#'
         {
+            if map2[x as usize][y as usize] > 0b1111u8 {
+                // we have not yet stored a direction, just store it
+                map2[x as usize][y as usize] = 1 << direction;
+            } else {
+                // have we been here in same direction
+                if map2[x as usize][y as usize] & (0b1 << direction) > 0 {
+                    // noop - TBD think this through
+                } else {
+                    // add direction
+                    map2[x as usize][y as usize] |= 0b1 << direction;
+                }
+            }
             // turn
             direction = (direction + 1) % 4;
-        }
-        // walk
-        x += DIRECTIONS[direction].0;
-        y += DIRECTIONS[direction].1;
-    }
-    map[start_x as usize][start_y as usize] = b'^'; // we should not place the obstacle here
-
-    let mut count: usize = 0;
-    // try all possible obstacles but only those with an X
-    for i in 0..max_x {
-        'inner: for j in 0..max_y {
-            // Create a deep copy
-            let mut map2: Vec<Vec<u8>> = original_map.to_vec();
-            if map[i as usize][j as usize] == b'X' {
-                map2[i as usize][j as usize] = b'#';
-                x = start_x;
-                y = start_y;
-                direction = 0;
-                // now walk the new, modified map
-                while x >= 0 && y >= 0 && x < max_x && y < max_y {
+        } else {
+            if next_x >= 0
+                && next_y >= 0
+                && next_x < max_x
+                && next_y < max_y
+                && map2[next_x as usize][next_y as usize] > 0b1111u8
+            {
+                // println!("obstacle at ({},{})", next_x, next_y);
+                // we have not tried this one
+                // do a what if for this place and place the obstacle here
+                let mut x2 = x;
+                let mut y2 = y;
+                let mut direction2 = direction;
+                let mut new_map = map2.to_vec();
+                new_map[next_x as usize][next_y as usize] = b'#';
+                'inner: while x2 >= 0 && y2 >= 0 && x2 < max_x && y2 < max_y {
+                    // println!("   inner at ({},{}) direction {}", x2, y2, direction2);
                     // we use a bitmap placed in the map for rembembering the directions
                     // we have used at this position
-                    if map2[x as usize][y as usize] > 0b1111u8 {
+                    if new_map[x2 as usize][y2 as usize] > 0b1111u8 {
                         // we have not yet stored a direction, just store it
-                        map2[x as usize][y as usize] = 1 << direction;
+                        new_map[x2 as usize][y2 as usize] = 1 << direction2;
                     } else {
                         // have we been here in same direction
-                        if map2[x as usize][y as usize] & (0b1 << direction) > 0 {
+                        if new_map[x2 as usize][y2 as usize] & (0b1 << direction2) > 0 {
                             count += 1;
-                            continue 'inner;
+                            break 'inner;
                         } else {
                             // add direction
-                            map2[x as usize][y as usize] |= 0b1 << direction;
+                            new_map[x2 as usize][y2 as usize] |= 0b1 << direction2;
                         }
                     }
                     // check if we need to change direction
-                    let next_x = x + DIRECTIONS[direction].0;
-                    let next_y = y + DIRECTIONS[direction].1;
-                    if next_x >= 0
-                        && next_y >= 0
-                        && next_x < max_x
-                        && next_y < max_y
-                        && map2[next_x as usize][next_y as usize] == b'#'
+                    let next_x2 = x2 + DIRECTIONS[direction2].0;
+                    let next_y2 = y2 + DIRECTIONS[direction2].1;
+                    if next_x2 >= 0
+                        && next_y2 >= 0
+                        && next_x2 < max_x
+                        && next_y2 < max_y
+                        && new_map[next_x2 as usize][next_y2 as usize] == b'#'
                     {
                         // turn
-                        direction = (direction + 1) % 4;
+                        direction2 = (direction2 + 1) % 4;
                     } else {
                         // walk
-                        x += DIRECTIONS[direction].0;
-                        y += DIRECTIONS[direction].1;
+                        x2 += DIRECTIONS[direction2].0;
+                        y2 += DIRECTIONS[direction2].1;
                     }
                 }
             }
+            if map2[x as usize][y as usize] > 0b1111u8 {
+                // we have not yet stored a direction, just store it
+                map2[x as usize][y as usize] = 1 << direction;
+            } else {
+                // have we been here in same direction
+                if map2[x as usize][y as usize] & (0b1 << direction) > 0 {
+                    // noop - TBD think this through
+                } else {
+                    // add direction
+                    map2[x as usize][y as usize] |= 0b1 << direction;
+                }
+            }
+
+            // walk
+            x += DIRECTIONS[direction].0;
+            y += DIRECTIONS[direction].1;
         }
     }
     count
