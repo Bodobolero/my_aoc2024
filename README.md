@@ -18,12 +18,13 @@ cargo bench day01
 
 | day  |  part1 |  part2 |
 | :----|-------:|-------:|
-| day01|  85 µs |  106 µs |
-| day02| 101 µs |  877 µs |
-| day03| 483 µs |  424 µs |
-| day04| 451 µs |  375 µs |
-| day05| 999 µs | 3445 µs |
-| day06|  37 µs |   59 ms |
+| day01|   85 µs |  106 µs |
+| day02|  101 µs |  877 µs |
+| day03|  483 µs |  424 µs |
+| day04|  451 µs |  375 µs |
+| day05|  999 µs | 3445 µs |
+| day06|   37 µs |   59 ms |
+| day07| 2869 µs |   37 ms |
 
 
 ## Benchmark details
@@ -93,6 +94,10 @@ day06_part2             time:   [57.975 ms 58.665 ms 59.442 ms]
                         Performance has improved.
 Found 1 outliers among 100 measurements (1.00%)
 
+     Running benches/benchmark.rs (target/release/deps/benchmark-15cfc321ad0c96cb)
+Gnuplot not found, using plotters backend
+day07_part1             time:   [2.8521 ms 2.8685 ms 2.8849 ms]
 
+day07_part2             time:   [36.960 ms 37.118 ms 37.277 ms]
 
 ```
