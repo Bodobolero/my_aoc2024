@@ -25,6 +25,7 @@ cargo bench day01
 | day05|  999 µs | 3445 µs |
 | day06|   37 µs |   59 ms |
 | day07| 2869 µs |   37 ms |
+| day08|   34 µs |   47 µs |
 
 
 ## Benchmark details
@@ -99,5 +100,16 @@ Gnuplot not found, using plotters backend
 day07_part1             time:   [2.8521 ms 2.8685 ms 2.8849 ms]
 
 day07_part2             time:   [36.960 ms 37.118 ms 37.277 ms]
+
+day08_part1             time:   [33.705 µs 33.875 µs 34.060 µs]
+Found 16 outliers among 100 measurements (16.00%)
+  2 (2.00%) low mild
+  12 (12.00%) high mild
+  2 (2.00%) high severe
+
+day08_part2             time:   [46.336 µs 46.534 µs 46.745 µs]
+Found 2 outliers among 100 measurements (2.00%)
+  1 (1.00%) low mild
+  1 (1.00%) high severe
 
 ```
