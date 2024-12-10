@@ -27,6 +27,7 @@ cargo bench day01
 | day07| 2869 µs |   37 ms |
 | day08|   34 µs |   47 µs |
 | day09|  481 µs |   80 ms |
+| day10|  358 µs | 1231 µs |
 
 
 ## Benchmark details
@@ -122,6 +123,20 @@ Warning: Unable to complete 100 samples in 5.0s. You may wish to increase target
 day09_part2             time:   [79.592 ms 79.945 ms 80.322 ms]
 Found 6 outliers among 100 measurements (6.00%)
   6 (6.00%) high mild
+
+day10_part1             time:   [356.03 µs 357.59 µs 359.45 µs]
+Found 7 outliers among 100 measurements (7.00%)
+  1 (1.00%) low severe
+  3 (3.00%) high mild
+  3 (3.00%) high severe
+
+Benchmarking day10_part2: Warming up for 3.0000 s
+Warning: Unable to complete 100 samples in 5.0s. You may wish to increase target time to 6.4s, enable flat sampling, or reduce sample count to 60.
+day10_part2             time:   [1.2254 ms 1.2310 ms 1.2377 ms]
+Found 5 outliers among 100 measurements (5.00%)
+  4 (4.00%) high mild
+  1 (1.00%) high severe
+
 
 
 ```
