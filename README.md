@@ -1,5 +1,8 @@
 # Solutions for Advent of code 2024
 
+This year I solved day 1-11.
+The total runtime for part1 and part2 of days 1-11 is 209 milliseconds.
+
 ## How to use
 
 Copy input for day into inputs/inputxx.txt
@@ -28,6 +31,7 @@ cargo bench day01
 | day08|   34 µs |   47 µs |
 | day09|  481 µs |   80 ms |
 | day10|  358 µs | 1231 µs |
+| day11|  584 µs |   20 ms |
 
 
 ## Benchmark details
@@ -136,6 +140,17 @@ day10_part2             time:   [1.2254 ms 1.2310 ms 1.2377 ms]
 Found 5 outliers among 100 measurements (5.00%)
   4 (4.00%) high mild
   1 (1.00%) high severe
+
+Benchmarking day11_part1: Collecting 100 samples in estimated 5.3274 s (10k iterday11_part1             time:   [526.85 µs 538.93 µs 560.35 µs]
+Found 4 outliers among 100 measurements (4.00%)
+  1 (1.00%) low mild
+  2 (2.00%) high mild
+  1 (1.00%) high severe
+
+day11_part2             time:   [19.042 ms 19.511 ms 20.286 ms]
+Found 7 outliers among 100 measurements (7.00%)
+  3 (3.00%) high mild
+  4 (4.00%) high severe
 
 
 
